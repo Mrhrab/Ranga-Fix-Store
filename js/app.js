@@ -19,6 +19,8 @@ const showProducts = (products) => {
       </div>
       <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
+      <p>Rating : ${product.rating.rate}</p>
+      <p>Rating Count: ${product.rating.count}</p>
       <h2>Price: $ ${product.price}</h2>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
       <button id="details-btn" class="btn btn-danger">Details</button></div>
@@ -46,12 +48,12 @@ const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
   const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = Math.round(total);
+  document.getElementById(id).innerText = Math.abs(total);
 };
 
 // set innerText function
 const setInnerText = (id, value) => {
-  document.getElementById(id).innerText = Math.round(value);
+  document.getElementById(id).innerText = Math.abs(value);
 };
 
 // update delivery charge and total Tax
@@ -72,10 +74,14 @@ const updateTaxAndCharge = () => {
 };
 
 //grandTotal update function
-const updateTotal = () => {
-  const grandTotal = 
-    getInputValue("price") + getInputValue("delivery-charge") +
-    getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal;
+function updateTotal(){
+
+  let regularPrice = getElementById('price').value;
+  let deliveryCharge = getElementById('delivery-charge').value;
+  let totalTax = getElementById('total-tax').value;
+
+  const grandTotal = regularPrice + deliveryCharge + totalTax;
+  document.getElementById("total").innerHTML = grandTotal;
  
 };
+
